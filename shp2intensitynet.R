@@ -1,3 +1,8 @@
+#With the function readShapeLines() from the maptools package, we can read a shapefile and store it 
+#into an SpatialLinesDataFrame object (sp). In this example we use the data provided by the same package 
+#shp2graph named 'ORN' which is already in sp format, therefore we don't need to use the maptools library 
+#to read the shapefile.
+
 library(intensitynet)
 library(shp2graph) #Load library
 data(ORN) #Load the Ontario road data from the shp2graph package
