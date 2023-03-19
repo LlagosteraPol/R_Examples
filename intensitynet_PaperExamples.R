@@ -186,7 +186,7 @@ PlotNeighborhood(intnet_chicago, node_id = "V100")
 
 # Intensitynet object containing only the 'trespass' events
 chicago_trespass <- chicago_df[chicago_df$marks == "trespass" ,]
-trespass_intnet <- intensitynet(chicago_adj_mtx,
+trespass_intnet <- intensitynet(adj_mtx,
                                 node_coords = node_coords,
                                 event_data = chicago_trespass)
 
@@ -196,8 +196,8 @@ trespass_intensity <- igraph::vertex_attr(trespass_intnet$graph, "intensity")
 
 # Intensitynet object containing only the 'robbery' events
 chicago_robbery <- chicago_df[chicago_df$marks == "robbery" ,]
-robbery_intnet <- intensitynet(chicago_adj_mtx,
-                               node_coords = chicago_node_coords,
+robbery_intnet <- intensitynet(adj_mtx,
+                               node_coords = node_coords,
                                event_data = chicago_robbery)
 
 robbery_intnet <- RelateEventsToNetwork(robbery_intnet)

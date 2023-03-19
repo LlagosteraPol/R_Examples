@@ -2,7 +2,21 @@ devtools::install_github("LlagosteraPol/intensitynet") # install package from gi
 
 library(intensitynet)
 library(spatstat)
+library(igraph)
 data(chicago)
+
+
+sum_intnet <- function(obj){
+  cls <- class(obj)[1]
+  g <- obj$graph
+  
+  cat("Intensitynet object of class", cls, "\n",
+      "Network type:", obj$graph_type, "\n",
+      "Number of nodes:", igraph::gorder(g), "\n",
+      "Number of edges:", igraph::gsize(g), "\n",
+      "Number of events:", nrow(obj$events), "\n",
+      "Event correction:", obj$event_correction, "units \n")
+}
 
 
 chicago_df <- as.data.frame(chicago[["data"]]) # Get as dataframe the data from Chicago
