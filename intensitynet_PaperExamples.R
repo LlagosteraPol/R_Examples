@@ -20,7 +20,7 @@ intnet_chicago <- intensitynet(adjacency_mtx = adj_mtx,
                                event_data = chicago_df)
 
 #Output
-attributes(intnet_chicago)
+summary(intnet_chicago)
 
 
 # Create an intensitynet object from a linear point process object
@@ -50,7 +50,7 @@ attributes(intnet_orn)
 
 # Network intensity function estimation (using the object intnet_chicago created previously)
 intnet_chicago <- RelateEventsToNetwork(intnet_chicago)
-g <- intnet_chicago$graph
+g <- GetGraph(intnet_chicago)
 
 # Output
 class(g)
@@ -66,13 +66,13 @@ sub_intnet_chicago <- ApplyWindow(intnet_chicago,
                                   y_coords = c(500, 1000))
 
 # Output
-c(igraph::gorder(intnet_chicago$graph),
-  igraph::gsize(intnet_chicago$graph),
-  nrow(intnet_chicago$events))
+c(igraph::gorder(GetGraph(intnet_chicago)),
+  igraph::gsize(GetGraph(intnet_chicago)),
+  nrow(GetEvents(intnet_chicago)))
 
-c(igraph::gorder(sub_intnet_chicago$graph),
-  igraph::gsize(sub_intnet_chicago$graph),
-  nrow(sub_intnet_chicago$events))
+c(igraph::gorder(GetGraph(sub_intnet_chicago)),
+  igraph::gsize(GetGraph(sub_intnet_chicago)),
+  nrow(GetEvents(sub_intnet_chicago)))
 
 
 # ----------------------------------------------- Section 3.5 ----------------------------------------------- 
@@ -116,7 +116,7 @@ PathTotalWeight(intnet_chicago, path = path, weight = "robbery")
 
 # Local autocorrelation function
 
-intensity_vec <- igraph::vertex_attr(intnet_chicago$graph)$intensity
+intensity_vec <- igraph::vertex_attr(GetGraph(intnet_chicago))$intensity
 data_moran <- NodeLocalCorrelation(intnet_chicago,
                                    dep_type = "moran" ,
                                    intensity = intensity_vec)
@@ -192,7 +192,7 @@ trespass_intnet <- intensitynet(adj_mtx,
 
 trespass_intnet <- RelateEventsToNetwork(trespass_intnet)
 
-trespass_intensity <- igraph::vertex_attr(trespass_intnet$graph, "intensity")
+trespass_intensity <- igraph::vertex_attr(GetGraph(trespass_intnet), "intensity")
 
 # Intensitynet object containing only the 'robbery' events
 chicago_robbery <- chicago_df[chicago_df$marks == "robbery" ,]
@@ -202,14 +202,14 @@ robbery_intnet <- intensitynet(adj_mtx,
 
 robbery_intnet <- RelateEventsToNetwork(robbery_intnet)
 
-robbery_intensity <- igraph::vertex_attr(robbery_intnet$graph, "intensity")
+robbery_intensity <- igraph::vertex_attr(GetGraph(robbery_intnet), "intensity")
 
 #Output
 cor(trespass_intensity, robbery_intensity) # potential correlation between the nodewise intensities of trespass and robbery events
 
 
 # Information about the network contained in the intensitynet object
-g <- intnet_chicago$graph
+g <- GetGraph(intnet_chicago)
 degree <- igraph::degree(g)
 
 #Output
