@@ -136,8 +136,8 @@ data_getis <- NodeLocalCorrelation(intnet_chicago,
 intnet_chicago <- data_getis$intnet
 
 # Output
-head(data_moran)
-head(data_getis$correlation)
+head(data_moran$correlation)
+head(data_geary$correlation)
 head(data_getis$correlation)
 
 
