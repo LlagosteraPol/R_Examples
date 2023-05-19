@@ -1,0 +1,27 @@
+---
+title: "report"
+output:
+  html_document:
+    toc: yes
+    toc_depth: '4'
+    toc_float: true
+---
+
+```{r, echo = FALSE, results='asis'}
+# https://stackoverflow.com/questions/57314417/rmarkdown-define-header-with-tabset-option-dynamically-inside-loop
+
+headers <- c("membership", "participation")
+tabs <- c("age", "gender")
+
+for (i in headers){
+
+    cat("###", i, "{.tabset}", "\n")
+    cat("\n\n\n")
+
+    for (j in tabs) {
+
+        cat("####", j, "\n")
+        cat("\n\n\n") 
+    }
+} 
+```
